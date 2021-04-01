@@ -124,11 +124,17 @@ Script source is in `bitrix.php` from root of this repository.
 
 ## Use composer
 
-Now you can execute composer from `ssh` :
+Now you can execute composer from `ssh` . Go to Bitrix local path:
 
 ``` sh
 $ cd path/to/bitrix/documentroot/local
-$ composer diagnose
-$ composer req symfony/var-dumper:^4.2 --dev
-$ composer update --dry-run
+```
+
+Use `composer` :
+
+``` sh
+$ ./composer --help
+$ ./composer diagnose
+$ ./composer req symfony/var-dumper:^4.2 --dev
+$ ./composer update --dry-run
 ```
