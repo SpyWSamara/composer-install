@@ -24,6 +24,11 @@ $path = new Directory(
 );
 $path->create();
 
+$src = new Directory(
+    Application::getDocumentRoot().'/local/src'
+);
+$src->create();
+
 $composer = new File(
     $path->getPath().'/composer.json'
 );
