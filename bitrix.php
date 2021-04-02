@@ -22,10 +22,7 @@ if (!\file_exists($composerPath)) {
 $path = new Directory(
     Application::getDocumentRoot().'/local'
 );
-
-if (!$path->isExists()) {
-    $path->create();
-}
+$path->create();
 
 $composer = new File(
     $path->getPath().'/composer.json'
