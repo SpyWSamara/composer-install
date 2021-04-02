@@ -30,43 +30,48 @@ if (!$path->isExists()) {
 $composer = new File(
     $path->getPath().'/composer.json'
 );
-$composerConfig = [
-    'config' => [
-        'sort-packages' => true,
-        'optimize-autoloader' => true,
-    ],
-    'autoload' => [
-        'psr-4' => [
-            'Local\\' => 'src/',
+if (!$composer->isExists()) {
+    $composerConfig = [
+        'config' => [
+            'sort-packages' => true,
+            'optimize-autoloader' => true,
         ],
-    ],
-    'require' => [
-        'wikimedia/composer-merge-plugin' => 'dev-master',
-    ],
-    'extra' => [
-        'merge-plugin' => [
-            'require' => [
-                '../bitrix/composer-bx.json',
+        'autoload' => [
+            'psr-4' => [
+                'Local\\' => 'src/',
             ],
         ],
-    ],
-];
-$composerJson = \json_encode(
-    $composerConfig,
-    JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT
-);
-$composer->putContents($composerJson);
+        'require' => [
+            'wikimedia/composer-merge-plugin' => 'dev-master',
+        ],
+        'extra' => [
+            'merge-plugin' => [
+                'require' => [
+                    '../bitrix/composer-bx.json',
+                ],
+            ],
+        ],
+    ];
+    $composerJson = \json_encode(
+        $composerConfig,
+        JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT
+    );
+    $composer->putContents($composerJson);
+}
+
 
 $composerBin = new File(
     $path->getPath().'/composer'
 );
-$composerBinAlias = \sprintf(
-    '%s -c %s -f %s $*',
-    $php,
-    \php_ini_loaded_file(),
-    $composerPath
-);
-if (false !== $composerBin->putContents($composerBinAlias)) {
-    // 0111 - executable for all
-    \chmod($composerBin->getPath(), $composerBin->getPermissions() | 0111);
+if (!$composerBin->isExists()) {
+    $composerBinAlias = \sprintf(
+        '%s -c %s -f %s $*',
+        $php,
+        \php_ini_loaded_file(),
+        $composerPath
+    );
+    if (false !== $composerBin->putContents($composerBinAlias)) {
+        // 0111 - executable for all
+        \chmod($composerBin->getPath(), $composerBin->getPermissions() | 0111);
+    }
 }
