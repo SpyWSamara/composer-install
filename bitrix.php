@@ -66,6 +66,7 @@ $composerBinAlias = \sprintf(
     \php_ini_loaded_file(),
     $composerPath
 );
-$composerBin->putContents($composerBinAlias);
-// 0111 - executable for all
-\chmod($composerBin->getPath(), $composerBin->getPermissions() | 0111);
+if (false !== $composerBin->putContents($composerBinAlias)) {
+    // 0111 - executable for all
+    \chmod($composerBin->getPath(), $composerBin->getPermissions() | 0111);
+}
