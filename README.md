@@ -16,7 +16,7 @@ Enter repo directory and run `install.sh` script:
 $ ./install.sh
 ```
 
-Remove not nessasory repo:
+Remove not necessary repo:
 
 ``` sh
 $ rm composer-install
